@@ -150,9 +150,6 @@ func (scheduledRunnableTask *ScheduledRunnableTask) isFixedRate() bool {
 }
 
 func (scheduledRunnableTask *ScheduledRunnableTask) NextExecutionTime() time.Time {
-	scheduledRunnableTask.taskMu.Lock()
-	defer scheduledRunnableTask.taskMu.Unlock()
-
 	return scheduledRunnableTask.triggerTime
 }
 
@@ -255,8 +252,5 @@ func (task *TriggerTask) Run(ctx context.Context) {
 }
 
 func (task *TriggerTask) NextExecutionTime() time.Time {
-	task.triggerContextMu.RLock()
-	defer task.triggerContextMu.RUnlock()
-
 	return task.nextTriggerTime
 }
