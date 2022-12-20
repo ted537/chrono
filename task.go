@@ -255,8 +255,8 @@ func (task *TriggerTask) Run(ctx context.Context) {
 }
 
 func (task *TriggerTask) NextExecutionTime() time.Time {
-	task.triggerContextMu.Lock()
-	defer task.triggerContextMu.Unlock()
+	task.triggerContextMu.RLock()
+	defer task.triggerContextMu.RUnlock()
 
 	return task.nextTriggerTime
 }
